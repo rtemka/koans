@@ -23,63 +23,19 @@ func numberOfArithmeticSlices(nums []int) int {
 	if len(nums) < 3 {
 		return 0
 	}
-	return countValidSubArrays(nums, 3, isArith)
-}
+	var count, ind int
+	var pdiff = nums[1] - nums[0]
 
-func isArith(arr []int, n int) bool {
-	if len(arr) < n || n < 3 {
-		return false
-	}
-	// берём первый, второй и последний элементы
-	f, s, l := arr[0], arr[1], arr[len(arr)-1]
-	var diff = diff(f, s)
-	if f > l {
-		// предполагаемое значене последнего элемента
-		pl := f - ((len(arr) - 1) * diff)
-		// проверяем соблюдался ли шаг между элементами
-		if pl != l {
-			return false
-		}
-	} else {
-		// предполагаемое значение первого элемента
-		pf := l - ((len(arr) - 1) * diff)
-		// проверяем соблюдался ли шаг между элементами
-		if pf != f {
-			return false
-		}
-	}
-
-	return true
-}
-
-func countValidSubArrays(arr []int, n int, f func([]int, int) bool) int {
-	var c int
-	for i := n; i <= len(arr); i++ {
-		for j := 0; j+i <= len(arr); j++ {
-			if f(arr[j:i+j], i) {
-				c++
-			}
-		}
-	}
-	return c
-}
-
-func diff(f, s int) int {
-	if (f < 0 && s > 0) || (s < 0 && f > 0) {
-		return abs(f) + abs(s) // -a1, a2 ... n || a1, -a2 ... n
-	} else {
-		as, af := abs(s), abs(f)
-		if as > af {
-			return as - af // -a1, -a2, a3 ... n || a1, a2, -a3 ... n
+	for i := 1; i < len(nums)-1; i++ {
+		diff := nums[i+1] - nums[i]
+		if diff == pdiff {
+			ind++
 		} else {
-			return af - as // a1, a2 ... n || -a1, -a2 ... n
+			pdiff = diff
+			ind = 0
 		}
+		count += ind
 	}
-}
 
-func abs(x int) int {
-	if x < 0 {
-		return -x
-	}
-	return x
+	return count
 }
