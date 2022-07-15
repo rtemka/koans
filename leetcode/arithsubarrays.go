@@ -26,34 +26,48 @@ func numberOfArithmeticSlices(nums []int) int {
 	// берём первый, второй и последний элементы
 	f, s, l := nums[0], nums[1], nums[len(nums)-1]
 
-	var diff = diff(f, s) // разница между элементами
-	var pl int            // предполагаемое значене последнего элемента
+	var diff = diff(f, s) // шаг между элементами
 
 	if f > l {
-		pl = f - ((len(nums) - 1) * diff)
+		// предполагаемое значене последнего элемента
+		pl := f - ((len(nums) - 1) * diff)
+		// проверяем соблюдался ли шаг между элементами
+		if pl != l {
+			return 0
+		}
 	} else {
-		pl = f + ((len(nums) - 1) * diff)
+		// предполагаемое значение первого элемента
+		pf := l - ((len(nums) - 1) * diff)
+		// проверяем соблюдался ли шаг между элементами
+		if pf != f {
+			return 0
+		}
 	}
 
-	if pl != l {
-		return 0
-	}
-	if len(nums) == 3 {
-		return 1
-	}
+	return countSubArrays(nums, 3)
+}
 
-	return len(nums) - 1
+func countSubArrays(arr []int, n int) int {
+	var c int
+	for i := n; i <= len(arr); i++ {
+		for j := 0; j+i <= len(arr); j++ {
+			c++
+		}
+	}
+	return c
 }
 
 func diff(f, s int) int {
-	if f < 0 && s < 0 {
-		return f - s
+	if (f < 0 && s > 0) || (s < 0 && f > 0) {
+		return abs(f) + abs(s) // -a1, a2 ... n || a1, -a2 ... n
+	} else {
+		as, af := abs(s), abs(f)
+		if as > af {
+			return as - af // -a1, -a2, a3 ... n || a1, a2, -a3 ... n
+		} else {
+			return af - as // a1, a2 ... n || -a1, -a2 ... n
+		}
 	}
-	if f < 0 || s < 0 {
-		return abs(f) + abs(s)
-	}
-
-	return abs(s) - abs(f)
 }
 
 func abs(x int) int {

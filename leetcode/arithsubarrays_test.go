@@ -44,12 +44,17 @@ func Test_numberOfArithmeticSlices(t *testing.T) {
 		{
 			name: "neg_to_pos",
 			args: args{[]int{-2, 3, 8, 13, 18}},
-			want: 4,
+			want: 6,
 		},
 		{
 			name: "neg_to_pos_in_middle",
 			args: args{[]int{-4, -2, 0, 2, 4, 6}},
-			want: 5,
+			want: 10,
+		},
+		{
+			name: "wrong",
+			args: args{[]int{-4, -2, 3, 6, 7, 9}},
+			want: 0,
 		},
 	}
 	for _, tt := range tests {
