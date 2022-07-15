@@ -56,6 +56,11 @@ func Test_numberOfArithmeticSlices(t *testing.T) {
 			args: args{[]int{-4, -2, 3, 6, 7, 9}},
 			want: 0,
 		},
+		{
+			name: "not_all_arith",
+			args: args{[]int{1, 2, 3, 8, 9, 10}},
+			want: 2,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

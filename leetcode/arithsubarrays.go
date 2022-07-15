@@ -23,35 +23,42 @@ func numberOfArithmeticSlices(nums []int) int {
 	if len(nums) < 3 {
 		return 0
 	}
+	return countValidSubArrays(nums, 3, isArith)
+}
+
+func isArith(arr []int, n int) bool {
+	if len(arr) < n || n < 3 {
+		return false
+	}
 	// берём первый, второй и последний элементы
-	f, s, l := nums[0], nums[1], nums[len(nums)-1]
-
-	var diff = diff(f, s) // шаг между элементами
-
+	f, s, l := arr[0], arr[1], arr[len(arr)-1]
+	var diff = diff(f, s)
 	if f > l {
 		// предполагаемое значене последнего элемента
-		pl := f - ((len(nums) - 1) * diff)
+		pl := f - ((len(arr) - 1) * diff)
 		// проверяем соблюдался ли шаг между элементами
 		if pl != l {
-			return 0
+			return false
 		}
 	} else {
 		// предполагаемое значение первого элемента
-		pf := l - ((len(nums) - 1) * diff)
+		pf := l - ((len(arr) - 1) * diff)
 		// проверяем соблюдался ли шаг между элементами
 		if pf != f {
-			return 0
+			return false
 		}
 	}
 
-	return countSubArrays(nums, 3)
+	return true
 }
 
-func countSubArrays(arr []int, n int) int {
+func countValidSubArrays(arr []int, n int, f func([]int, int) bool) int {
 	var c int
 	for i := n; i <= len(arr); i++ {
 		for j := 0; j+i <= len(arr); j++ {
-			c++
+			if f(arr[j:i+j], i) {
+				c++
+			}
 		}
 	}
 	return c
