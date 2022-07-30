@@ -14,7 +14,27 @@ package leetcode
 // Do not allocate extra space for another array. You must do this
 // by modifying the input array in-place with O(1) extra memory.
 
-func removeElement(nums []int, val int) int {
+func removeElementNaive(nums []int, val int) int {
+	k := len(nums)
+	for i := 0; i < len(nums); i++ {
+		if nums[i] == val {
+			nums = append(nums[:i], nums[i+1:]...)
+			k--
+			i--
+		}
+	}
+	return k
+}
 
-	return 0
+func removeElement(nums []int, val int) int {
+	var j int = 0
+
+	for i, n := range nums {
+		if n != val {
+			nums[j] = nums[i]
+			j++
+		}
+	}
+
+	return j
 }
