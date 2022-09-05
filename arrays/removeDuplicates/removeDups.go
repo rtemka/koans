@@ -26,21 +26,17 @@ package leetcode
 
 func removeDuplicates(nums []int) int {
 
-	for i, j := 0, 1; j < len(nums); {
-		if nums[i] != nums[j] && j-i > 1 {
-			nums = append(nums[:i+1], nums[j:]...)
-			i++
-			j = i + 1
-		} else if nums[i] == nums[j] && j+1 == len(nums) {
-			nums = nums[:i+1]
-			j++
-		} else if nums[i] == nums[j] {
-			j++
-		} else {
-			i++
-			j++
-		}
+	if len(nums) <= 1 {
+		return 1
 	}
 
-	return len(nums)
+	k := 1
+	for i := 1; i < len(nums); i++ {
+		if nums[k-1] != nums[i] {
+			nums[k] = nums[i]
+			k++
+		}
+	}
+	return k
+
 }
