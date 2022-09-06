@@ -36,7 +36,7 @@ func TwoSum(nums []int, target int) []int {
 }
 
 // с прмененние карты
-func twoSum(nums []int, target int) []int {
+func TwoSum2(nums []int, target int) []int {
 	hash := map[int]int{}
 
 	for i, num := range nums {
