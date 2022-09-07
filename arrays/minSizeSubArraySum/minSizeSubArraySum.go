@@ -1,5 +1,7 @@
 package leetcode
 
+import "math"
+
 // Given an array of positive integers nums and a positive integer target, return the minimal length of a
 // contiguous subarray [numsl, numsl+1, ..., numsr-1, numsr] of which the sum is greater than or equal
 // to target. If there is no such subarray, return 0 instead.
@@ -45,5 +47,30 @@ func minSubArrayLen(target int, nums []int) int {
 		// log.Println("sum:", sum, "min:", min, "i:", i, "j:", j)
 	}
 
+	return min
+}
+
+func MinSubArrayLen2(target int, nums []int) int {
+
+	var sum, lo, hi = 0, 0, 0
+	var min = math.MaxInt
+
+	for hi < len(nums) {
+
+		sum += nums[hi]
+
+		for target <= sum {
+			if hi-lo+1 < min {
+				min = hi - lo + 1
+			}
+			sum -= nums[lo]
+			lo++
+		}
+		hi++
+	}
+
+	if min == math.MaxInt {
+		return 0
+	}
 	return min
 }
