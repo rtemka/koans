@@ -15,7 +15,7 @@ func searchBST(root *binarytree.TreeNode, val int) *binarytree.TreeNode {
 	}
 }
 
-func searchBSTIter(root *binarytree.TreeNode, val int) *binarytree.TreeNode {
+func SearchBSTIter(root *binarytree.TreeNode, val int) *binarytree.TreeNode {
 	for root != nil {
 		if root.Val == val {
 			return root

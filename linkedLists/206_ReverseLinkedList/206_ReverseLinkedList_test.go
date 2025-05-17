@@ -1,19 +1,20 @@
 package leetcode
 
 import (
+	ll "koans/linkedLists"
 	"reflect"
 	"testing"
 )
 
 func Test_reverseList(t *testing.T) {
-	tl := &ListNode{Val: 1, Next: &ListNode{Val: 2}}
+	tl := &ll.ListNode{Val: 1, Next: &ll.ListNode{Val: 2}}
 	type args struct {
-		head *ListNode
+		head *ll.ListNode
 	}
 	tests := []struct {
 		name string
 		args args
-		want *ListNode
+		want *ll.ListNode
 	}{
 		{
 			name: "[1,2]=[2,1]",
@@ -33,17 +34,17 @@ func Test_reverseList(t *testing.T) {
 }
 
 func Test_reverseListRec(t *testing.T) {
-	tl := &ListNode{Val: 1, Next: &ListNode{Val: 2}}
-	tl1 := &ListNode{Val: 1, Next: &ListNode{Val: 2, Next: &ListNode{Val: 3, Next: &ListNode{Val: 4}}}}
+	tl := &ll.ListNode{Val: 1, Next: &ll.ListNode{Val: 2}}
+	tl1 := &ll.ListNode{Val: 1, Next: &ll.ListNode{Val: 2, Next: &ll.ListNode{Val: 3, Next: &ll.ListNode{Val: 4}}}}
 	tl2 := tl1.Next.Next.Next
 
 	type args struct {
-		head *ListNode
+		head *ll.ListNode
 	}
 	tests := []struct {
 		name string
 		args args
-		want *ListNode
+		want *ll.ListNode
 	}{
 		{
 			name: "[1,2]=[2,1]",
@@ -67,7 +68,7 @@ func Test_reverseListRec(t *testing.T) {
 	}
 }
 
-func printList(t *testing.T, head *ListNode) {
+func printList(t *testing.T, head *ll.ListNode) {
 	t.Helper()
 	for n := head; n != nil; n = n.Next {
 		if n.Next != nil && n.Next.Next == n {
