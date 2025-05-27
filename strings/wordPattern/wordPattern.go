@@ -2,24 +2,29 @@ package leetcode
 
 import "strings"
 
-// Given a pattern and a string s, find if s follows the same pattern.
-
-// Here follow means a full match, such that there is a bijection between a letter in pattern and a non-empty word in s.
-
-// Example 1:
-
-// Input: pattern = "abba", s = "dog cat cat dog"
-// Output: true
-// Example 2:
-
-// Input: pattern = "abba", s = "dog cat cat fish"
-// Output: false
-// Example 3:
-
-// Input: pattern = "aaaa", s = "dog cat cat dog"
-// Output: false
-
 func wordPattern(pattern string, s string) bool {
+	words := strings.Split(s, " ")
+	if len(words) != len(pattern) {
+		return false
+	}
+	patternToWord := make(map[byte]string, len(words))
+	wordToPattern := make(map[string]byte, len(words))
+	for i := range len(words) {
+		char := pattern[i]
+		word := words[i]
+		if v, ok := patternToWord[char]; ok && v != word {
+			return false
+		}
+		if v, ok := wordToPattern[word]; ok && v != char {
+			return false
+		}
+		patternToWord[char] = word
+		wordToPattern[word] = char
+	}
+	return true
+}
+
+func WordPattern2022(pattern string, s string) bool {
 
 	words := strings.Split(s, " ")
 	if len(words) != len(pattern) {
