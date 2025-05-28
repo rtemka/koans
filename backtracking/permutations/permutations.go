@@ -29,7 +29,7 @@ func backtrack(cur, nums []int, memo map[int]bool, idx int) {
 		cur[idx] = nums[i]
 		// Recursively fill the next position
 		backtrack(cur, nums, memo, idx+1)
-		// // Backtrack: mark number as unused for next iteration
+		// Mark number as unused for next iteration
 		memo[i] = false
 	}
 }
