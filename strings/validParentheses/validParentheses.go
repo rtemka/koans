@@ -1,3 +1,5 @@
+// #42
+// https://leetcode.com/problems/valid-parentheses/description/
 package leetcode
 
 // Дана строка строки содержащая только символы '(', ')', '{', '}', '[' и ']', определите, является ли входная строка допустимой.
@@ -37,6 +39,31 @@ func isValid(s string) bool {
 		default:
 			return false
 		}
+	}
+
+	return len(stack) == 0
+}
+
+func IsValid2(s string) bool {
+	if len(s)%2 != 0 {
+		return false
+	}
+	var stack []byte
+	m := map[byte]byte{
+		'(': ')',
+		'[': ']',
+		'{': '}',
+	}
+
+	for i := range s {
+		if _, ok := m[s[i]]; ok {
+			stack = append(stack, s[i])
+			continue
+		}
+		if len(stack) == 0 || m[stack[len(stack)-1]] != s[i] {
+			return false
+		}
+		stack = stack[:len(stack)-1]
 	}
 
 	return len(stack) == 0
