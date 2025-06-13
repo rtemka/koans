@@ -1,34 +1,30 @@
+// #49
+// https://leetcode.com/problems/group-anagrams/description/
 package leetcode
 
 import (
 	"sort"
 )
 
-// Given an array of strings strs, group the anagrams together. You can return the answer in any order.
+func groupAnagrams2025(strs []string) [][]string {
+	var res [][]string
+	m := make(map[[26]int]int, len(strs))
 
-// An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase,
-// typically using all the original letters exactly once.
+	for i := range strs {
+		var freq [26]int
+		for k := range strs[i] {
+			freq[strs[i][k]-'a']++
+		}
+		if idx, ok := m[freq]; ok {
+			res[idx] = append(res[idx], strs[i])
+		} else {
+			res = append(res, []string{strs[i]})
+			m[freq] = len(res) - 1
+		}
+	}
 
-// Example 1:
-
-// Input: strs = ["eat","tea","tan","ate","nat","bat"]
-// Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
-
-// Example 2:
-
-// Input: strs = [""]
-// Output: [[""]]
-
-// Example 3:
-
-// Input: strs = ["a"]
-// Output: [["a"]]
-
-// Constraints:
-
-// 1 <= strs.length <= 104
-// 0 <= strs[i].length <= 100
-// strs[i] consists of lowercase English letters.
+	return res
+}
 
 func groupAnagrams(strs []string) [][]string {
 
