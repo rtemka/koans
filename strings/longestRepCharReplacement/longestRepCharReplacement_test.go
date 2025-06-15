@@ -41,3 +41,27 @@ func Test_characterReplacement(t *testing.T) {
 		})
 	}
 }
+
+func Test_characterReplacement2025(t *testing.T) {
+	tests := []struct {
+		name string
+		s    string
+		k    int
+		want int
+	}{
+		{
+			name: "1",
+			s:    "aabcdcca",
+			k:    2,
+			want: 5,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := characterReplacement2025(tt.s, tt.k)
+			if got != tt.want {
+				t.Errorf("characterReplacement2025() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
