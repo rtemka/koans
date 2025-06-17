@@ -54,6 +54,7 @@ func BFS(row, col int, grid [][]byte) {
 	queue := list.New()
 	// Mark the current cell as visited.
 	grid[row][col] = '#'
+
 	queue.PushBack(Position{row: row, col: col})
 	for queue.Len() > 0 {
 		// Pop node from the front of the queue.
@@ -64,7 +65,7 @@ func BFS(row, col int, grid [][]byte) {
 			// exploring this island.
 			if isWithinBounds(nextRow, nextCol, grid) && grid[nextRow][nextCol] == '1' {
 				queue.PushBack(Position{row: nextRow, col: nextCol})
-				grid[node.row][node.col] = '#'
+				grid[nextRow][nextCol] = '#'
 			}
 		}
 	}
